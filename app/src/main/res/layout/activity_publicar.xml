@@ -1,0 +1,509 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#F0DECE"
+    android:fitsSystemWindows="true"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FAE9DB"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingBottom="100dp" >
+
+            <!-- TOOLBAR -->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="66dp"
+                android:background="#F0DECE"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
+
+                <ImageButton
+                    android:id="@+id/btnVolver"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:background="@null"
+                    android:backgroundTint="@null"
+                    android:contentDescription="Volver"
+                    android:src="?attr/homeAsUpIndicator"
+                    app:tint="#934B00" />
+
+                <TextView
+                    android:id="@+id/txtTitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:text="Nueva Receta"
+                    android:textColor="#934B00"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/btnProfile"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="Perfil"
+                    android:src="@drawable/perfil" />
+            </RelativeLayout>
+
+            <!-- CARD: FOTO DEL PLATO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:text="Foto del plato"
+                    android:textColor="#1A1A1A"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Upload Area -->
+                <FrameLayout
+                    android:id="@+id/subirFoto"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:background="@drawable/bg_dashed_border"
+                    android:clickable="true"
+                    app:rippleColor="#66F08B33">
+
+                    <!-- Imagen -->
+                    <ImageView
+                        android:id="@+id/imgReceta"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop" />
+
+                    <!-- Contenido que aparece cuando NO hay imagen -->
+                    <LinearLayout
+                        android:id="@+id/layoutPlaceholder"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <FrameLayout
+                            android:layout_width="56dp"
+                            android:layout_height="56dp"
+                            android:background="@drawable/bg_circle_peach">
+
+                            <ImageView
+                                android:layout_width="28dp"
+                                android:layout_height="28dp"
+                                android:layout_gravity="center"
+                                android:src="@android:drawable/ic_menu_camera"
+                                app:tint="#C47D2E" />
+
+                        </FrameLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/be_vietnam_pro_semibold"
+                            android:text="Subir imagen"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:text="PNG, JPG hasta 10MB"
+                            android:textSize="12sp" />
+
+                    </LinearLayout>
+
+                    <!-- Botones cuando HAY imagen -->
+                    <LinearLayout
+                        android:id="@+id/layoutBotonesFoto"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom|end"
+                        android:layout_margin="12dp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <ImageButton
+                            android:id="@+id/btnEditarFoto"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/bg_circle_peach"
+                            android:src="@android:drawable/ic_menu_edit" />
+
+                        <ImageButton
+                            android:id="@+id/btnEliminarFoto"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="8dp"
+                            android:background="@drawable/bg_circle_peach"
+                            android:src="@android:drawable/ic_menu_delete" />
+
+                    </LinearLayout>
+
+                </FrameLayout>
+
+            </LinearLayout>
+
+            <!-- CARD: NOMBRE Y DESCRIPCIÓN -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:letterSpacing="0.08"
+                    android:text="NOMBRE DE LA RECETA"
+                    android:textColor="#9E9E9E"
+                    android:textSize="11sp" />
+
+                <EditText
+                    android:id="@+id/inputNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:hint="Escribí el título acá..."
+                    android:inputType="textCapSentences"
+                    android:paddingBottom="8dp"
+                    android:textColor="#1A1A1A"
+                    android:textColorHint="#BDBDBD"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="#1A1A1A" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:text="Breve Descripción"
+                    android:textColor="#6B6B6B"
+                    android:textSize="13sp" />
+
+                <EditText
+                    android:id="@+id/inputDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:background="@drawable/bg_input_rounded"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:gravity="top"
+                    android:hint="Contanos un poco sobre esta receta..."
+                    android:inputType="textMultiLine|textCapSentences"
+                    android:paddingHorizontal="14dp"
+                    android:paddingTop="10dp"
+                    android:textColor="#1A1A1A"
+                    android:textColorHint="#BDBDBD"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <!-- CARD: CATEGORÍA Y TIEMPO -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Categoría label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:text="Categoría"
+                    android:textColor="#6B6B6B"
+                    android:textSize="13sp" />
+
+                <!-- Chips Row -->
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="none"
+                    android:fillViewport="false">
+
+                    <LinearLayout
+                        android:id="@+id/layoutCategorias"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:baselineAligned="false">
+
+                        <TextView
+                            android:id="@+id/chipAgregar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="34dp"
+                            android:layout_marginEnd="8dp"
+                            android:background="@drawable/bg_chip_outline"
+                            android:gravity="center"
+                            android:paddingHorizontal="14dp"
+                            android:text="+"
+                            android:textStyle="bold"
+                            android:textColor="#1A1A1A"
+                            android:textSize="16sp"/>
+
+                    </LinearLayout>
+
+                </HorizontalScrollView>
+
+                <!-- Tiempo de preparación label -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="8dp"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:text="Tiempo de preparación"
+                    android:textColor="#6B6B6B"
+                    android:textSize="13sp" />
+
+                <!-- Time Input -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/bg_input_rounded">
+
+                    <EditText
+                        android:id="@+id/inputTiempo"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_toStartOf="@id/iconClock"
+                        android:background="@null"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:hint="Ej: 45 min"
+                        android:inputType="text"
+                        android:paddingHorizontal="14dp"
+                        android:textColor="#1A1A1A"
+                        android:textColorHint="#BDBDBD"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:id="@+id/iconClock"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="14dp"
+                        android:contentDescription="Reloj"
+                        android:src="@android:drawable/ic_menu_recent_history"
+                        app:tint="#BDBDBD" />
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <!-- CARD: INGREDIENTES -->
+            <LinearLayout
+                android:id="@+id/contenedorIngredientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Header -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:text="Ingredientes"
+                        android:textColor="#1A1A1A"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/btnAnadirIngrediente"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="Añadir"
+                            android:src="@android:drawable/ic_input_add"
+                            app:tint="#C47D2E" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/be_vietnam_pro_semibold"
+                            android:text="Añadir"
+                            android:textColor="#C47D2E"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutIngredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+                <!-- Ingrediente y cantidad -->
+
+            </LinearLayout>
+
+            <!-- CARD: PREPARACIÓN -->
+            <LinearLayout
+                android:id="@+id/layoutPreparacion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <!-- Header -->
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:text="Preparación"
+                        android:textColor="#1A1A1A"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/btnAnadirPaso"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="Añadir paso"
+                            android:src="@android:drawable/ic_input_add"
+                            app:tint="#C47D2E" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/be_vietnam_pro_semibold"
+                            android:text="Añadir"
+                            android:textColor="#C47D2E"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <!-- Pasos preparación -->
+                <LinearLayout
+                    android:id="@+id/layoutPasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="bottom"
+        android:background="#FAE9DB"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="30dp"
+        android:paddingStart="55dp"
+        android:paddingEnd="55dp">
+
+        <TextView
+            android:id="@+id/btnDescartar"
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:fontFamily="@font/be_vietnam_pro_semibold"
+            android:gravity="center_vertical"
+            android:text="Descartar"
+            android:textColor="#934B00"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btnGuardar"
+            android:layout_width="160dp"
+            android:layout_height="50dp"
+            android:backgroundTint="#F28C33"
+            android:fontFamily="@font/be_vietnam_pro_semibold"
+            android:text="Guardar"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:icon="@android:drawable/ic_menu_save"
+            app:iconTint="#FFFFFF"
+            app:rippleColor="#66934B00"/>
+    </LinearLayout>
+
+</FrameLayout>

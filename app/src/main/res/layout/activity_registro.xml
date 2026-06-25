@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAE9DB">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:paddingBottom="24dp">
+
+            <!-- logo -->
+            <ImageView
+                android:layout_width="187dp"
+                android:layout_height="96dp"
+                android:layout_marginTop="48dp"
+                android:src="@drawable/logo"/>
+
+
+            <!-- titulo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:text="RecetApp"
+                android:textSize="40sp"
+                android:textColor="#934B00"
+                android:fontFamily="@font/plus_jakarta_sans_bold"/>
+
+
+            <!-- container -->
+            <LinearLayout
+                android:layout_width="333dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/rectangulo_redondeado"
+                android:orientation="vertical"
+                android:padding="28dp">
+
+
+                <!-- usuario -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre de usuario"
+                    android:textStyle="bold"
+                    android:textColor="#4A3228"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"/>
+
+                <EditText
+                    android:id="@+id/inputUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/campo_formulario"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:hint="chef"
+                    android:paddingHorizontal="18dp"
+                    android:textColor="#CC4A3228"
+                    android:textColorHint="#C4A189"
+                    android:textSize="15sp" />
+
+                <!-- correo -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Correo electrónico"
+                    android:textStyle="bold"
+                    android:textColor="#4A3228"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"/>
+
+                <EditText
+                    android:id="@+id/inputCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/campo_formulario"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:hint="chef@recetapp.com"
+                    android:paddingHorizontal="18dp"
+                    android:textColor="#CC4A3228"
+                    android:textColorHint="#C4A189"
+                    android:textSize="15sp" />
+
+                <!-- contraseña -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Contraseña"
+                    android:textStyle="bold"
+                    android:textColor="#4A3228"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"/>
+
+                <EditText
+                    android:id="@+id/inputContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/campo_formulario"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:hint="********"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="18dp"
+                    android:textColor="#CC4A3228"
+                    android:textColorHint="#C4A189"
+                    android:textSize="15sp" />
+
+                <!-- repetir conrtraseña -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:text="Repetir contraseña"
+                    android:textStyle="bold"
+                    android:textColor="#4A3228"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"/>
+
+                <EditText
+                    android:id="@+id/inputContraseniaR"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/campo_formulario"
+                    android:fontFamily="@font/be_vietnam_pro"
+                    android:hint="********"
+                    android:inputType="textPassword"
+                    android:paddingHorizontal="18dp"
+                    android:textColor="#CC4A3228"
+                    android:textColorHint="#C4A189"
+                    android:textSize="15sp" />
+
+
+                <!-- boton comenzar -->
+                <Button
+                    android:id="@+id/btnComenzar"
+                    android:layout_width="159dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="24dp"
+                    android:backgroundTint="#F28C33"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:includeFontPadding="false"
+                    android:text="Comenzar"
+                    android:textColor="#4A3228"
+                    android:textSize="18sp"
+                    app:rippleColor="#66934B00" />
+
+                <!-- google -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="16dp"
+                    android:text="o continúa con"
+                    android:textColor="#4A3228"
+                    android:textSize="12sp"/>
+
+                <Button
+                    android:id="@+id/btnGoogle"
+                    android:layout_width="159dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:backgroundTint="#FFFFFF"
+                    android:fontFamily="@font/plus_jakarta_sans_bold"
+                    android:includeFontPadding="false"
+                    android:text="Google"
+                    android:textColor="#4A3228"
+                    android:textColorLink="#7FFDFDFD"
+                    android:textSize="18sp"
+                    app:icon="@drawable/googleg_standard_color_18"
+                    app:iconPadding="8dp"
+                    app:iconTint="@null"
+                    app:rippleColor="#66F08B33"
+                    app:strokeColor="#F08B33"
+                    app:strokeWidth="2dp" />
+            </LinearLayout>
+
+
+            <!-- ingresar -->
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/plus_jakarta_sans_medium"
+                    android:text="¿Ya tenés una cuenta?"
+                    android:textColor="#4A3228"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:id="@+id/linkLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:fontFamily="@font/be_vietnam_pro_semibold"
+                    android:text="Ingresá"
+                    android:textColor="#934B00"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

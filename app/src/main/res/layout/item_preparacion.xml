@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="top"
+    android:orientation="horizontal"
+    android:layout_marginTop="8dp">
+
+    <!-- Número del paso -->
+    <FrameLayout
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/bg_circle_dark">
+
+        <TextView
+            android:id="@+id/numPaso"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:fontFamily="@font/be_vietnam_pro_semibold"
+            android:includeFontPadding="false"
+            android:text="1"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+    </FrameLayout>
+
+    <EditText
+        android:id="@+id/inputPaso"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:background="@drawable/bg_input_rounded"
+        android:fontFamily="@font/be_vietnam_pro"
+        android:gravity="top"
+        android:hint="Describí el paso..."
+        android:inputType="textMultiLine|textCapSentences"
+        android:paddingHorizontal="12dp"
+        android:paddingTop="10dp"
+        android:textColor="#1A1A1A"
+        android:textColorHint="#BDBDBD"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/btnEliminarPaso"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/selectableItemBackgroundBorderless"
+        android:contentDescription="Eliminar paso"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        app:tint="#BDBDBD" />
+
+</LinearLayout>

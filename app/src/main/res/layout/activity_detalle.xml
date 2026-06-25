@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAE9DB"
+    android:fitsSystemWindows="true"
+    tools:context=".DetalleActivity">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:background="#F0DECE"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/btnVolver"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:backgroundTint="@null"
+            android:contentDescription="Volver"
+            android:src="?attr/homeAsUpIndicator"
+            app:tint="#934B00" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/be_vietnam_pro_semibold"
+            android:text="Detalle Receta"
+            android:textColor="#934B00"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/btnProfile"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:contentDescription="Perfil"
+            android:src="@drawable/perfil" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/relativeLayout"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:clipToPadding="false"
+        android:paddingVertical="20dp">
+
+        <LinearLayout
+            android:layout_width="331dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/rectangulo_redondeado"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="16dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="220dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp"
+                    app:strokeWidth="0dp">
+
+                    <ImageView
+                        android:id="@+id/imgRecetaCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/placeholder_receta" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="10dp"
+                        android:layout_gravity="bottom"
+                        android:background="@drawable/rectangulo_redondeado" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="12dp">
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:scrollbars="none">
+
+                        <LinearLayout
+                            android:id="@+id/layoutCategoriasCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:paddingBottom="4dp" />
+                    </HorizontalScrollView>
+
+                    <TextView
+                        android:id="@+id/tvNombreCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:text=""
+                        android:textColor="#1A1A1A"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:src="@android:drawable/ic_menu_recent_history"
+                            app:tint="#9E9E9E" />
+
+                        <TextView
+                            android:id="@+id/tvTiempoCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:text=""
+                            android:textColor="#6B6B6B"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@android:drawable/ic_menu_sort_by_size"
+                            app:tint="#9E9E9E" />
+
+                        <TextView
+                            android:id="@+id/tvIngredientesCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:text=""
+                            android:textColor="#6B6B6B"
+                            android:textSize="13sp" />
+
+                        <ImageView
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_marginStart="16dp"
+                            android:src="@android:drawable/ic_menu_info_details"
+                            app:tint="#9E9E9E" />
+
+                        <TextView
+                            android:id="@+id/tvPasosCard"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="4dp"
+                            android:fontFamily="@font/be_vietnam_pro"
+                            android:text=""
+                            android:textColor="#6B6B6B"
+                            android:textSize="13sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvDescripcion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/be_vietnam_pro"
+                        android:text=""
+                        android:textColor="#545454"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/containerIngredientes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/txtIngredientes"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:text="Ingredientes"
+                        android:textColor="#934B00"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/containerPasos"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="16dp">
+
+                    <TextView
+                        android:id="@+id/txtPreparacion"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:text="Preparación"
+                        android:textColor="#934B00"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="16dp"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="8dp">
+
+                    <Button
+                        android:id="@+id/btnEditar"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#F28C33"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:includeFontPadding="false"
+                        android:text="Editar"
+                        android:textColor="#FFFFFF"
+                        android:textSize="15sp"
+                        app:icon="@android:drawable/ic_menu_edit"
+                        app:iconTint="#FFFFFF"
+                        app:rippleColor="#66934B00" />
+
+                    <Button
+                        android:id="@+id/btnEliminar"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#FFFFFF"
+                        android:fontFamily="@font/be_vietnam_pro_semibold"
+                        android:includeFontPadding="false"
+                        android:text="Borrar"
+                        android:textColor="#B60000"
+                        android:textSize="15sp"
+                        app:icon="@android:drawable/ic_menu_delete"
+                        app:iconTint="#B60000"
+                        app:rippleColor="#66934B00"
+                        app:strokeColor="#B60000"
+                        app:strokeWidth="2dp" />
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

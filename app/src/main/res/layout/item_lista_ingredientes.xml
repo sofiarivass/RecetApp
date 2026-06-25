@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="8dp"
+    android:background="@drawable/bg_chip_peach"
+    android:orientation="horizontal"
+    android:paddingVertical="5dp"
+    android:layout_marginHorizontal="10dp">
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        android:layout_width="75dp"
+        android:layout_height="match_parent"
+        android:includeFontPadding="false"
+        app:buttonIconTint="#FFFFFF"
+        app:buttonTint="#934B00" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/tvIngrediente"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/be_vietnam_pro"
+            android:includeFontPadding="false"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+            android:text=""
+            android:textColor="#1a1a1a"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCantidad"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/be_vietnam_pro_light"
+            android:includeFontPadding="false"
+            android:paddingTop="3dp"
+            android:paddingRight="30dp"
+            android:paddingBottom="10dp"
+            android:text=""
+            android:textColor="#545454"
+            android:textSize="12sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</LinearLayout>
