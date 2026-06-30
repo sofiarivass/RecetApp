@@ -2,6 +2,7 @@ package com.example.recetapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -23,6 +24,8 @@ public class PerfilActivity extends AppCompatActivity {
     TextView txtNombre, txtMail;
     TextView totalRecetas, totalFavoritas;
 
+    LinearLayout btnCerrarSesion;
+    ImageButton btnVolver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +41,26 @@ public class PerfilActivity extends AppCompatActivity {
         totalRecetas = findViewById(R.id.totalRecetas);
         totalFavoritas = findViewById(R.id.totalFavoritas);
 
+        btnVolver = findViewById(R.id.btnVolver);
+        btnVolver.setOnClickListener(v -> finish());
+
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
+
         cargarDatosDelPerfil();
+    }
+
+    private void cerrarSesion() {
+
+        mAuth.signOut();
+
+        Intent intent = new Intent(PerfilActivity.this, LoginActivity.class);
+
+        // borrar el historial de pantallas
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+        startActivity(intent);
+        finish();
     }
 
     private void cargarDatosDelPerfil() {

@@ -19,7 +19,7 @@
         android:includeFontPadding="false"
         android:text="..."
         android:textColor="#4A3228"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -35,7 +35,7 @@
         android:includeFontPadding="false"
         android:text="..."
         android:textColor="#804A3228"
-        android:textSize="14sp"
+        android:textSize="12sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -76,8 +76,8 @@
 
     <ImageView
         android:id="@+id/imgPerfil"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:layout_alignParentEnd="true"
         android:layout_centerVertical="true"
         android:layout_marginTop="44dp"
@@ -91,7 +91,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="45dp"
         android:gravity="center|center_horizontal|center_vertical"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/txtMail"
@@ -210,6 +210,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginTop="12dp"
