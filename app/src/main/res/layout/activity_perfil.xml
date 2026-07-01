@@ -186,30 +186,6 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:background="@drawable/rectangulo_redondeado"
-            android:clickable="true"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_margin="30dp"
-                android:src="@drawable/icono_editar_perfil" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/be_vietnam_pro_semibold"
-                android:includeFontPadding="false"
-                android:text="Editar perfil"
-                android:textColor="#4A3228"
-                android:textSize="15sp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/btnCerrarSesion"
             android:layout_width="match_parent"
             android:layout_height="55dp"
