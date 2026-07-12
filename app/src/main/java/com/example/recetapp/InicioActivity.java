@@ -261,8 +261,8 @@ public class InicioActivity extends AppCompatActivity {
 
                                                 // Extra: Si el usuario saca el corazón MIENTRAS está en la pestaña favoritos,
                                                 // recargamos la lista para que la tarjeta desaparezca dinámicamente.
-                                                if (categoriaActual.equals("Favoritos")) {
-                                                    cargarRecetas("Favoritos");
+                                                if (categoriaActual.equals("Favoritos") || categoriaActual.equals("")) {
+                                                    cargarRecetas(categoriaActual);
                                                 }
                                             });
                                 } else {
