@@ -12,6 +12,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.widget.EditText;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +39,10 @@ public class InicioActivity extends AppCompatActivity {
 
     ImageView btnPerfil;
     Button btnNuevaReceta;
+
+    EditText etBuscar;
+    private List<DocumentSnapshot> recetasCategoriaActual = new ArrayList<>();
+    private List<String> favoritosActuales = new ArrayList<>();
 
     private FirebaseFirestore db;
     private FirebaseAuth mAuth;
@@ -61,6 +69,15 @@ public class InicioActivity extends AppCompatActivity {
             startActivity(new Intent(InicioActivity.this, PublicarActivity.class));
         });
 
+        etBuscar = findViewById(R.id.etBuscar);
+        etBuscar.addTextChangedListener(new TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override public void onTextChanged(CharSequence s, int start, int before, int count) {
+                mostrarRecetas(filtrarPorTexto(recetasCategoriaActual, s.toString()), favoritosActuales, categoriaActual);
+            }
+            @Override public void afterTextChanged(Editable s) {}
+        });
+
         cargarCategoriasUsuario();
     }
 
@@ -69,6 +86,19 @@ public class InicioActivity extends AppCompatActivity {
         super.onResume();
         // cada vez que vuelve al inicio (ej: despues de eliminar una receta), recarga la lista con la categoria que el usuario tenia seleccionada
         cargarRecetas(categoriaActual);
+    }
+
+    private List<DocumentSnapshot> filtrarPorTexto(List<DocumentSnapshot> lista, String texto) {
+        if (texto == null || texto.trim().isEmpty()) return lista;
+        String textoLower = texto.toLowerCase().trim();
+        List<DocumentSnapshot> resultado = new ArrayList<>();
+        for (DocumentSnapshot doc : lista) {
+            String nombre = doc.getString("nombre");
+            if (nombre != null && nombre.toLowerCase().contains(textoLower)) {
+                resultado.add(doc);
+            }
+        }
+        return resultado;
     }
 
     private void cargarCategoriasUsuario() {
@@ -163,6 +193,111 @@ public class InicioActivity extends AppCompatActivity {
         }
     }
 
+    private void mostrarRecetas(List<DocumentSnapshot> recetas, List<String> listaFavoritos, String filtroCategoria) {
+        containerRecetas.removeAllViews();
+
+        for (DocumentSnapshot document : recetas) {
+            View card = getLayoutInflater().inflate(R.layout.item_receta, containerRecetas, false);
+
+            ImageView imgRecetaCard = card.findViewById(R.id.imgRecetaCard);
+            String imagenStr = document.getString("img");
+
+            if (imagenStr != null && !imagenStr.isEmpty() && !imagenStr.equals("placeholder_receta.png")) {
+                com.bumptech.glide.Glide.with(card.getContext())
+                        .load(imagenStr)
+                        .placeholder(R.drawable.placeholder_receta)
+                        .into(imgRecetaCard);
+            } else {
+                imgRecetaCard.setImageResource(R.drawable.placeholder_receta);
+            }
+
+            TextView tvNombre = card.findViewById(R.id.tvNombreCard);
+            TextView tvTiempo = card.findViewById(R.id.tvTiempoCard);
+            LinearLayout layoutCategoriasCard = card.findViewById(R.id.layoutCategoriasCard);
+            TextView tvIngredientes = card.findViewById(R.id.tvIngredientesCard);
+            TextView tvPasos = card.findViewById(R.id.tvPasosCard);
+
+            tvNombre.setText(document.getString("nombre"));
+            tvTiempo.setText(document.getString("tiempo"));
+
+            List<String> categorias = (List<String>) document.get("categorias");
+            List<?> ingredientes = (List<?>) document.get("ingredientes");
+            List<?> preparacion = (List<?>) document.get("preparacion");
+
+            if (categorias != null && !categorias.isEmpty()) {
+                layoutCategoriasCard.removeAllViews();
+                for (String nombreCategoria : categorias) {
+                    TextView chip = (TextView) LayoutInflater.from(card.getContext())
+                            .inflate(R.layout.item_chip_receta, layoutCategoriasCard, false);
+                    chip.setText(nombreCategoria);
+                    layoutCategoriasCard.addView(chip);
+                }
+            }
+
+            tvIngredientes.setText((ingredientes != null ? ingredientes.size() : 0) + " ingr.");
+            tvPasos.setText((preparacion != null ? preparacion.size() : 0) + " pasos");
+
+
+            ImageButton btnFavorito = card.findViewById(R.id.btnFavorito);
+            String recetaId = document.getId();
+
+            final boolean[] esFavorito = {listaFavoritos.contains(recetaId)};
+
+            if (esFavorito[0]) {
+                btnFavorito.setImageResource(R.drawable.icono_corazon_relleno);
+            } else {
+                btnFavorito.setImageResource(R.drawable.icono_corazon_vacio);
+            }
+
+            FirebaseUser user = mAuth.getCurrentUser();
+            btnFavorito.setOnClickListener(v -> {
+                if (esFavorito[0]) {
+                    db.collection("usuarios").document(user.getUid())
+                            .update("favoritos", FieldValue.arrayRemove(recetaId))
+                            .addOnSuccessListener(aVoid -> {
+                                esFavorito[0] = false;
+                                btnFavorito.setImageResource(R.drawable.icono_corazon_vacio);
+
+                                // Extra: Si el usuario saca el corazón MIENTRAS está en la pestaña favoritos,
+                                // recargamos la lista para que la tarjeta desaparezca dinámicamente.
+                                if (categoriaActual.equals("Favoritos") || categoriaActual.equals("")) {
+                                    cargarRecetas(categoriaActual);
+                                }
+                            });
+                } else {
+                    db.collection("usuarios").document(user.getUid())
+                            .update("favoritos", FieldValue.arrayUnion(recetaId))
+                            .addOnSuccessListener(aVoid -> {
+                                esFavorito[0] = true;
+                                btnFavorito.setImageResource(R.drawable.icono_corazon_relleno);
+                            });
+                }
+            });
+
+            card.setOnClickListener(v -> {
+                Intent intent = new Intent(this, DetalleActivity.class);
+                intent.putExtra("idReceta", recetaId);
+                startActivity(intent);
+            });
+
+            containerRecetas.addView(card);
+        }
+
+        // mensajes de estado vacío
+        if (containerRecetas.getChildCount() == 0) {
+            if (filtroCategoria.equals("Todas")) {
+                msjVacio.setText("Todavía no cargaste ninguna receta");
+            } else if (filtroCategoria.equals("Favoritos")) {
+                msjVacio.setText("Todavía no agregaste recetas a favoritos");
+            } else {
+                msjVacio.setText("No tenés recetas en la categoría " + filtroCategoria);
+            }
+            msjVacio.setVisibility(View.VISIBLE);
+        } else {
+            msjVacio.setVisibility(View.GONE);
+        }
+    }
+
     private void cargarRecetas(String filtroCategoria) {
         FirebaseUser user = mAuth.getCurrentUser();
         if (user == null) return;
@@ -196,108 +331,12 @@ public class InicioActivity extends AppCompatActivity {
 
                     // hilo principal para la ui
                     runOnUiThread(() -> {
-                        containerRecetas.removeAllViews();
-
-                        for (DocumentSnapshot document : recetasFiltradas) {
-                            View card = getLayoutInflater().inflate(R.layout.item_receta, containerRecetas, false);
-
-                            ImageView imgRecetaCard = card.findViewById(R.id.imgRecetaCard);
-                            String imagenStr = document.getString("img");
-
-                            if (imagenStr != null && !imagenStr.isEmpty() && !imagenStr.equals("placeholder_receta.png")) {
-                                com.bumptech.glide.Glide.with(card.getContext())
-                                        .load(imagenStr)
-                                        .placeholder(R.drawable.placeholder_receta)
-                                        .into(imgRecetaCard);
-                            } else {
-                                imgRecetaCard.setImageResource(R.drawable.placeholder_receta);
-                            }
-
-                            TextView tvNombre = card.findViewById(R.id.tvNombreCard);
-                            TextView tvTiempo = card.findViewById(R.id.tvTiempoCard);
-                            LinearLayout layoutCategoriasCard = card.findViewById(R.id.layoutCategoriasCard);
-                            TextView tvIngredientes = card.findViewById(R.id.tvIngredientesCard);
-                            TextView tvPasos = card.findViewById(R.id.tvPasosCard);
-
-                            tvNombre.setText(document.getString("nombre"));
-                            tvTiempo.setText(document.getString("tiempo"));
-
-                            List<String> categorias = (List<String>) document.get("categorias");
-                            List<?> ingredientes = (List<?>) document.get("ingredientes");
-                            List<?> preparacion = (List<?>) document.get("preparacion");
-
-                            if (categorias != null && !categorias.isEmpty()) {
-                                layoutCategoriasCard.removeAllViews();
-                                for (String nombreCategoria : categorias) {
-                                    TextView chip = (TextView) LayoutInflater.from(card.getContext())
-                                            .inflate(R.layout.item_chip_receta, layoutCategoriasCard, false);
-                                    chip.setText(nombreCategoria);
-                                    layoutCategoriasCard.addView(chip);
-                                }
-                            }
-
-                            tvIngredientes.setText((ingredientes != null ? ingredientes.size() : 0) + " ingr.");
-                            tvPasos.setText((preparacion != null ? preparacion.size() : 0) + " pasos");
-
-
-                            ImageButton btnFavorito = card.findViewById(R.id.btnFavorito);
-                            String recetaId = document.getId();
-
-                            final boolean[] esFavorito = {listaFavoritos.contains(recetaId)};
-
-                            if (esFavorito[0]) {
-                                btnFavorito.setImageResource(R.drawable.icono_corazon_relleno);
-                            } else {
-                                btnFavorito.setImageResource(R.drawable.icono_corazon_vacio);
-                            }
-
-                            btnFavorito.setOnClickListener(v -> {
-                                if (esFavorito[0]) {
-                                    db.collection("usuarios").document(user.getUid())
-                                            .update("favoritos", FieldValue.arrayRemove(recetaId))
-                                            .addOnSuccessListener(aVoid -> {
-                                                esFavorito[0] = false;
-                                                btnFavorito.setImageResource(R.drawable.icono_corazon_vacio);
-
-                                                // Extra: Si el usuario saca el corazón MIENTRAS está en la pestaña favoritos,
-                                                // recargamos la lista para que la tarjeta desaparezca dinámicamente.
-                                                if (categoriaActual.equals("Favoritos") || categoriaActual.equals("")) {
-                                                    cargarRecetas(categoriaActual);
-                                                }
-                                            });
-                                } else {
-                                    db.collection("usuarios").document(user.getUid())
-                                            .update("favoritos", FieldValue.arrayUnion(recetaId))
-                                            .addOnSuccessListener(aVoid -> {
-                                                esFavorito[0] = true;
-                                                btnFavorito.setImageResource(R.drawable.icono_corazon_relleno);
-                                            });
-                                }
-                            });
-
-                            card.setOnClickListener(v -> {
-                                Intent intent = new Intent(this, DetalleActivity.class);
-                                intent.putExtra("idReceta", recetaId);
-                                startActivity(intent);
-                            });
-
-                            containerRecetas.addView(card);
-                        }
-
-                        // mensajes de estado vacío
-                        if (containerRecetas.getChildCount() == 0) {
-                            if (filtroCategoria.equals("Todas")) {
-                                msjVacio.setText("Todavía no cargaste ninguna receta");
-                            } else if (filtroCategoria.equals("Favoritos")) {
-                                msjVacio.setText("Todavía no agregaste recetas a favoritos");
-                            } else {
-                                msjVacio.setText("No tenés recetas en la categoría " + filtroCategoria);
-                            }
-                            msjVacio.setVisibility(View.VISIBLE);
-                        } else {
-                            msjVacio.setVisibility(View.GONE);
-                        }
+                        recetasCategoriaActual = recetasFiltradas;
+                        favoritosActuales = listaFavoritos;
+                        mostrarRecetas(filtrarPorTexto(recetasFiltradas, etBuscar.getText().toString()), listaFavoritos, filtroCategoria);
                     });
+
+
                 });
 
                 executor.shutdown();
